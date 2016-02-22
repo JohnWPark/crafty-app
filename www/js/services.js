@@ -55,6 +55,10 @@ angular.module('starter.services', [])
 
   var Products = {
 
+    all: function(){
+      return products;
+    },
+
     saveProduct: function(product, image){
       var newProduct = {
         name: product.name,
