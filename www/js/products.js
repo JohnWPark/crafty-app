@@ -1,6 +1,7 @@
-angular.module('starter.services', [])
 
-.factory('Products', function(FURL, $firebaseArray) {
+'use strict';
+
+app.factory('Products', function(FURL, $firebaseArray, Auth) {
   var ref = new Firebase(FURL);
   var products = $firebaseArray(ref.child('products'));
 
@@ -11,7 +12,10 @@ angular.module('starter.services', [])
     },
 
     saveProduct: function(product, image){
+      console.log('the user profile is, ', Auth.user.profile);
       var newProduct = {
+        seller_image: Auth.user.profile.gravatar,
+        seller_name: Auth.user.profile.name,
         name: product.name,
         tagline: product.tagline,
         description: product.description,
@@ -23,6 +27,8 @@ angular.module('starter.services', [])
         console.log('added to the database');
       })
     }
+
   };
   return Products;
+
 });
